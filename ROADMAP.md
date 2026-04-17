@@ -23,17 +23,17 @@
 - [X] Decide on final project scope for the one-month timeline  
   **Assigned to:** Jack Hubbard
 
-- [ ] Design the basic user interface layout in Tkinter  
+- [X] Design the basic user interface layout in Tkinter  
   **Assigned to:** Jack Hubbard
 
-- [ ] Plan the expense categories and required data fields  
+- [X] Plan the expense categories and required data fields  
   **Assigned to:** Jack Hubbard
 
-- [ ] Set up initial Python project files  
+- [X] Set up initial Python project files  
   **Assigned to:** Jack Hubbard
 
-- [ ] Research SQLite integration for storing expense records  
+- [X] Research SQLite integration for storing expense records  
   **Assigned to:** Jack Hubbard
 
-- [ ] Create a basic prototype that accepts one expense input  
+- [X] Create a basic prototype that accepts one expense input  
   **Assigned to:** Jack Hubbard
