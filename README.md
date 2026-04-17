@@ -50,3 +50,22 @@ The primary users are college students and other young adults managing limited i
 ## References
 - https://docs.python.org/3/library/tkinter.html
 - https://docs.python.org/3/library/sqlite3.html
+
+# Related Repository Review
+
+## Repository Reviewed
+Expense Tracker Python GUI  
+https://github.com/happy-harsh/Expense-Tracker-python-GUI
+
+## What I learned
+- Expense tracking apps can be kept simple and still be useful
+- A GUI makes the project more practical for student users
+- Category-based organization is important for seeing spending patterns
+
+## Ideas useful for PocketBudget
+- Simple expense entry form
+- Clear display of past transactions
+- Basic summaries of spending
+
+## Notes
+PocketBudget will focus more specifically on student budgeting, keeping the design lightweight and centered on weekly or monthly budget goals.
