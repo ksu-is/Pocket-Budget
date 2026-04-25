@@ -37,3 +37,27 @@
 
 - [X] Create a basic prototype that accepts one expense input  
   **Assigned to:** Jack Hubbard
+
+- [] Improve expense input validation for amount and date fields
+  **Assigned to:** Jack Hubbard
+
+- [] Add a budget limit feature for users to enter a planned spending amount
+  **Assigned to:** Jack Hubbard
+
+- [] Display the remaining budget after expenses are added
+  **Assigned to:** Jack Hubbard
+
+- [] Add clearer success and error messages when users submit expenses
+  **Assigned to:** Jack Hubbard
+
+- [] Improve the recent expenses display so entries are easier to read
+  **Assigned to:** Jack Hubbard
+
+- [] Add category-based spending totals for better spending summaries
+  **Assigned to:** Jack Hubbard
+
+- [] Update README.md with clearer setup and usage instructions
+  **Assigned to:** Jack Hubbard
+
+- [] Test the app with multiple expenses across different categories
+  **Assigned to:** Jack Hubbard

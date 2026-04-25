@@ -31,7 +31,7 @@ The primary users are college students and other young adults managing limited i
 ## Tools and Technologies
 - Python
 - Tkinter for the graphical user interface
-- SQLite (`sqlite3`) for data storage
+- SQLite for data storage
 
 ## Sprint 1 Goals
 - Set up the project repository
