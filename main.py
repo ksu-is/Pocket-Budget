@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 import sqlite3
+from datetime import datetime
 
 # -----------------------------
 # Database setup
@@ -34,8 +35,17 @@ def add_expense():
 
     try:
         amount = float(amount)
+        if amount <= 0:
+            messagebox.showerror("Input Error", "Amount must be greater than zero.")
+            return
     except ValueError:
         messagebox.showerror("Input Error", "Amount must be a number.")
+        return
+
+    try:
+        datetime.strptime(date, "%Y-%m-%d")
+    except ValueError:
+        messagebox.showerror("Input Error", "Date must be in YYYY-MM-DD format.")
         return
 
     cursor.execute(
