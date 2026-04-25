@@ -33,12 +33,37 @@ The primary users are college students and other young adults managing limited i
 - Tkinter for the graphical user interface
 - SQLite for data storage
 
+## Setup Instructions
+- Make sure Python is installed on your computer.
+- Download or clone this repository.
+- Open the project folder in your code editor or terminal.
+- Run the application with: python main.py
+
+## Usage Instructions
+1. Enter the name of the expense, such as `Lunch`, `Gas`, or `Textbook`.
+2. Select a category from the dropdown menu.
+3. Enter the amount of the expense.
+4. Enter the date using the format `YYYY-MM-DD`.
+5. Click **Add Expense** to save the expense.
+6. Review the recent expenses list to see previously entered expenses.
+7. Check the **Total Spent** amount to see how much has been recorded.
+
 ## Sprint 1 Goals
 - Set up the project repository
 - Create project documentation
 - Research similar repositories
 - Build an initial application structure
 - Plan core features for development
+
+## Sprint 2 Goals
+- Improve expense input validation for amount and date fields
+- Add a budget limit feature for users to enter a planned spending amount
+- Display the remaining budget after expenses are added
+- Add clearer success and error messages when users submit expenses
+- Improve the recent expenses display so entries are easier to read
+- Add category-based spending totals for better spending summaries
+- Update README.md with clearer setup and usage instructions
+- Test the app with multiple expenses across different categories
 
 ## Team
 - Jack Hubbard
