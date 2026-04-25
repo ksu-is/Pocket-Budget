@@ -25,7 +25,7 @@
 
 - [x] Create a basic prototype that accepts one expense input
 
-- [ ] Improve expense input validation for amount and date fields
+- [X] Improve expense input validation for amount and date fields
 
 - [ ] Add a budget limit feature for users to enter a planned spending amount
 
@@ -37,6 +37,6 @@
 
 - [ ] Add category-based spending totals for better spending summaries
 
-- [ ] Update README.md with clearer setup and usage instructions
+- [X] Update README.md with clearer setup and usage instructions
 
 - [ ] Test the app with multiple expenses across different categories
