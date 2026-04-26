@@ -12,8 +12,10 @@ Students often struggle to keep track of daily expenses such as food, transporta
 PocketBudget provides a lightweight way for students to:
 - add expenses
 - assign expenses to categories
+- set a planned budget limit
 - view spending history
 - track spending against a weekly or monthly budget
+- see the remaining budget after expenses are added
 - see a summary of total spending by category
 
 ## Intended Users
@@ -40,13 +42,17 @@ The primary users are college students and other young adults managing limited i
 - Run the application with: python main.py
 
 ## Usage Instructions
-1. Enter the name of the expense, such as `Lunch`, `Gas`, or `Textbook`.
-2. Select a category from the dropdown menu.
-3. Enter the amount of the expense.
-4. Enter the date using the format `YYYY-MM-DD`.
-5. Click **Add Expense** to save the expense.
-6. Review the recent expenses list to see previously entered expenses.
-7. Check the **Total Spent** amount to see how much has been recorded.
+1. Enter a planned spending amount in the **Budget Limit** field.
+2. Click **Set Budget** to save the budget amount.
+3. Enter the name of the expense, such as `Lunch`, `Gas`, or `Textbook`.
+4. Select a category from the dropdown menu.
+5. Enter the amount of the expense.
+6. Enter the date using the format `YYYY-MM-DD`.
+7. Click **Add Expense** to save the expense.
+8. Review the recent expenses list to see previously entered expenses.
+9. Check the **Total Spent** amount to see how much has been recorded.
+10. Check the **Remaining Budget** amount to see how much money is left from the planned budget.
+11. If total spending goes over the budget limit, the app will display a warning that the user is over budget.
 
 ## Sprint 1 Goals
 - Set up the project repository
