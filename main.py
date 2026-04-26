@@ -18,11 +18,54 @@ CREATE TABLE IF NOT EXISTS expenses (
     date TEXT NOT NULL
 )
 """)
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS budget (
+    id INTEGER PRIMARY KEY,
+    budget_limit REAL NOT NULL
+)
+""")
+
 conn.commit()
 
 # -----------------------------
 # Functions
 # -----------------------------
+def get_budget_limit():
+    cursor.execute("SELECT budget_limit FROM budget WHERE id = 1")
+    result = cursor.fetchone()
+    if result:
+        return result[0]
+    return 0.0
+
+
+def set_budget_limit():
+    budget_amount = entry_budget.get().strip()
+
+    if not budget_amount:
+        messagebox.showerror("Input Error", "Please enter a budget amount.")
+        return
+
+    try:
+        budget_amount = float(budget_amount)
+        if budget_amount <= 0:
+            messagebox.showerror("Input Error", "Budget must be greater than zero.")
+            return
+    except ValueError:
+        messagebox.showerror("Input Error", "Budget must be a number.")
+        return
+
+    cursor.execute("""
+    INSERT OR REPLACE INTO budget (id, budget_limit)
+    VALUES (1, ?)
+    """, (budget_amount,))
+
+    conn.commit()
+
+    messagebox.showinfo("Success", "Budget limit updated successfully.")
+    refresh_expenses()
+
+
 def add_expense():
     expense_name = entry_name.get().strip()
     category = category_var.get().strip()
@@ -63,12 +106,14 @@ def add_expense():
 
     refresh_expenses()
 
+
 def refresh_expenses():
     listbox_expenses.delete(0, tk.END)
     cursor.execute("SELECT expense_name, category, amount, date FROM expenses")
     rows = cursor.fetchall()
 
     total_spent = 0
+
     for row in rows:
         expense_name, category, amount, date = row
         total_spent += amount
@@ -77,14 +122,32 @@ def refresh_expenses():
             f"{expense_name} | {category} | ${amount:.2f} | {date}"
         )
 
+    budget_limit = get_budget_limit()
+    remaining = budget_limit - total_spent
+
     label_total.config(text=f"Total Spent: ${total_spent:.2f}")
+    label_budget.config(text=f"Budget Limit: ${budget_limit:.2f}")
+
+    if budget_limit > 0:
+        label_remaining.config(text=f"Remaining Budget: ${remaining:.2f}")
+
+        if remaining < 0:
+            label_remaining.config(fg="red")
+            label_status.config(text="You are over budget!", fg="red")
+        else:
+            label_remaining.config(fg="green")
+            label_status.config(text="You are within your budget.", fg="green")
+    else:
+        label_remaining.config(text="Remaining Budget: $0.00", fg="black")
+        label_status.config(text="No budget limit set.", fg="black")
+
 
 # -----------------------------
 # Tkinter window
 # -----------------------------
 root = tk.Tk()
 root.title("PocketBudget")
-root.geometry("500x500")
+root.geometry("500x600")
 
 title_label = tk.Label(root, text="PocketBudget", font=("Arial", 18, "bold"))
 title_label.pack(pady=10)
@@ -92,6 +155,23 @@ title_label.pack(pady=10)
 subtitle_label = tk.Label(root, text="Track your spending and stay within budget")
 subtitle_label.pack(pady=5)
 
+# -----------------------------
+# Budget input section
+# -----------------------------
+frame_budget = tk.Frame(root)
+frame_budget.pack(pady=10)
+
+tk.Label(frame_budget, text="Budget Limit:").grid(row=0, column=0, sticky="e", padx=5, pady=5)
+
+entry_budget = tk.Entry(frame_budget, width=20)
+entry_budget.grid(row=0, column=1, padx=5, pady=5)
+
+btn_budget = tk.Button(frame_budget, text="Set Budget", command=set_budget_limit)
+btn_budget.grid(row=0, column=2, padx=5, pady=5)
+
+# -----------------------------
+# Expense input section
+# -----------------------------
 frame_inputs = tk.Frame(root)
 frame_inputs.pack(pady=10)
 
@@ -101,10 +181,20 @@ entry_name.grid(row=0, column=1, padx=5, pady=5)
 
 tk.Label(frame_inputs, text="Category:").grid(row=1, column=0, sticky="e", padx=5, pady=5)
 category_var = tk.StringVar(value="Food")
+
 category_menu = ttk.Combobox(
     frame_inputs,
     textvariable=category_var,
-    values=["Food", "Transportation", "Entertainment", "School", "Bills", "Personal", "Subscriptions", "Other"],
+    values=[
+        "Food",
+        "Transportation",
+        "Entertainment",
+        "School",
+        "Bills",
+        "Personal",
+        "Subscriptions",
+        "Other"
+    ],
     state="readonly",
     width=22
 )
@@ -121,12 +211,30 @@ entry_date.grid(row=3, column=1, padx=5, pady=5)
 btn_add = tk.Button(root, text="Add Expense", command=add_expense)
 btn_add.pack(pady=10)
 
+# -----------------------------
+# Spending summary
+# -----------------------------
 label_total = tk.Label(root, text="Total Spent: $0.00", font=("Arial", 12, "bold"))
-label_total.pack(pady=5)
+label_total.pack(pady=3)
+
+label_budget = tk.Label(root, text="Budget Limit: $0.00", font=("Arial", 12, "bold"))
+label_budget.pack(pady=3)
+
+label_remaining = tk.Label(root, text="Remaining Budget: $0.00", font=("Arial", 12, "bold"))
+label_remaining.pack(pady=3)
+
+label_status = tk.Label(root, text="No budget limit set.", font=("Arial", 11, "bold"))
+label_status.pack(pady=3)
 
 tk.Label(root, text="Recent Expenses").pack(pady=5)
+
 listbox_expenses = tk.Listbox(root, width=60, height=12)
 listbox_expenses.pack(pady=10)
+
+# Load saved budget into input box
+saved_budget = get_budget_limit()
+if saved_budget > 0:
+    entry_budget.insert(0, str(saved_budget))
 
 refresh_expenses()
 
