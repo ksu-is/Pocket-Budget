@@ -27,9 +27,9 @@
 
 - [X] Improve expense input validation for amount and date fields
 
-- [ ] Add a budget limit feature for users to enter a planned spending amount
+- [X] Add a budget limit feature for users to enter a planned spending amount
 
-- [ ] Display the remaining budget after expenses are added
+- [X] Display the remaining budget after expenses are added
 
 - [ ] Add clearer success and error messages when users submit expenses
 
@@ -39,4 +39,4 @@
 
 - [X] Update README.md with clearer setup and usage instructions
 
-- [ ] Test the app with multiple expenses across different categories
+- [X] Test the app with multiple expenses across different categories
