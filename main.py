@@ -211,6 +211,9 @@ entry_date.grid(row=3, column=1, padx=5, pady=5)
 btn_add = tk.Button(root, text="Add Expense", command=add_expense)
 btn_add.pack(pady=10)
 
+label_feedback = tk.Label(root, text="", font=("Arial", 10, "bold"))
+label_feedback.pack(pady=3)
+
 # -----------------------------
 # Spending summary
 # -----------------------------
