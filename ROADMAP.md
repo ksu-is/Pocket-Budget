@@ -31,11 +31,9 @@
 
 - [X] Display the remaining budget after expenses are added
 
-- [ ] Add clearer success and error messages when users submit expenses
+- [X] Add clearer success and error messages when users submit expenses
 
-- [ ] Improve the recent expenses display so entries are easier to read
-
-- [ ] Add category-based spending totals for better spending summaries
+- [X] Add category-based spending totals for better spending summaries
 
 - [X] Update README.md with clearer setup and usage instructions
 
