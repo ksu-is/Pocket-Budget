@@ -109,18 +109,37 @@ def add_expense():
 
 def refresh_expenses():
     listbox_expenses.delete(0, tk.END)
-    cursor.execute("SELECT expense_name, category, amount, date FROM expenses")
+    listbox_category_totals.delete(0, tk.END)
+
+    cursor.execute("""
+    SELECT expense_name, category, amount, date
+    FROM expenses
+    ORDER BY date DESC
+    """)
     rows = cursor.fetchall()
 
     total_spent = 0
+    category_totals = {}
 
     for row in rows:
         expense_name, category, amount, date = row
         total_spent += amount
+
+        if category in category_totals:
+            category_totals[category] += amount
+        else:
+            category_totals[category] = amount
+
         listbox_expenses.insert(
             tk.END,
             f"{expense_name} | {category} | ${amount:.2f} | {date}"
         )
+
+    if category_totals:
+        for category, total in sorted(category_totals.items(), key=lambda item: item[1], reverse=True):
+            listbox_category_totals.insert(tk.END, f"{category}: ${total:.2f}")
+    else:
+        listbox_category_totals.insert(tk.END, "No category totals yet.")
 
     budget_limit = get_budget_limit()
     remaining = budget_limit - total_spent
@@ -147,7 +166,7 @@ def refresh_expenses():
 # -----------------------------
 root = tk.Tk()
 root.title("PocketBudget")
-root.geometry("500x600")
+root.geometry("550x750")
 
 title_label = tk.Label(root, text="PocketBudget", font=("Arial", 18, "bold"))
 title_label.pack(pady=10)
@@ -229,9 +248,14 @@ label_remaining.pack(pady=3)
 label_status = tk.Label(root, text="No budget limit set.", font=("Arial", 11, "bold"))
 label_status.pack(pady=3)
 
-tk.Label(root, text="Recent Expenses").pack(pady=5)
+tk.Label(root, text="Spending by Category", font=("Arial", 11, "bold")).pack(pady=5)
 
-listbox_expenses = tk.Listbox(root, width=60, height=12)
+listbox_category_totals = tk.Listbox(root, width=60, height=8)
+listbox_category_totals.pack(pady=5)
+
+tk.Label(root, text="Recent Expenses", font=("Arial", 11, "bold")).pack(pady=5)
+
+listbox_expenses = tk.Listbox(root, width=60, height=10)
 listbox_expenses.pack(pady=10)
 
 # Load saved budget into input box
