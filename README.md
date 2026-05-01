@@ -29,6 +29,7 @@ The primary users are college students and other young adults managing limited i
 - Track remaining budget
 - Show spending summaries by category
 - Display categories with the highest spending
+- Deleting entries, if necessary
 
 ## Tools and Technologies
 - Python
