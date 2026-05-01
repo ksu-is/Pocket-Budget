@@ -39,7 +39,7 @@
 
 - [X] Test the app with multiple expenses across different categories
 
-- [ ] Remove the test database file from GitHub and update `.gitignore` so personal/test expense data is not included in the repository
+- [X] Remove the test database file from GitHub and update `.gitignore` so personal/test expense data is not included in the repository
 
 - [ ] Add an option to delete an expense entry if the user makes a mistake
 
