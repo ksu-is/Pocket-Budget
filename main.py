@@ -28,6 +28,9 @@ CREATE TABLE IF NOT EXISTS budget (
 
 conn.commit()
 
+# This list stores the database IDs for expenses shown in the recent expenses list
+expense_ids = []
+
 # -----------------------------
 # Functions
 # -----------------------------
@@ -107,14 +110,39 @@ def add_expense():
     refresh_expenses()
 
 
+def delete_expense():
+    selected = listbox_expenses.curselection()
+
+    if not selected:
+        messagebox.showerror("Selection Error", "Please select an expense to delete.")
+        return
+
+    selected_index = selected[0]
+    expense_id = expense_ids[selected_index]
+    selected_expense = listbox_expenses.get(selected_index)
+
+    confirm = messagebox.askyesno(
+        "Delete Expense",
+        f"Are you sure you want to delete this expense?\n\n{selected_expense}"
+    )
+
+    if confirm:
+        cursor.execute("DELETE FROM expenses WHERE id = ?", (expense_id,))
+        conn.commit()
+
+        messagebox.showinfo("Success", "Expense deleted successfully.")
+        refresh_expenses()
+
+
 def refresh_expenses():
     listbox_expenses.delete(0, tk.END)
     listbox_category_totals.delete(0, tk.END)
+    expense_ids.clear()
 
     cursor.execute("""
-    SELECT expense_name, category, amount, date
+    SELECT id, expense_name, category, amount, date
     FROM expenses
-    ORDER BY date DESC
+    ORDER BY date DESC, id DESC
     """)
     rows = cursor.fetchall()
 
@@ -122,7 +150,9 @@ def refresh_expenses():
     category_totals = {}
 
     for row in rows:
-        expense_name, category, amount, date = row
+        expense_id, expense_name, category, amount, date = row
+
+        expense_ids.append(expense_id)
         total_spent += amount
 
         if category in category_totals:
@@ -166,7 +196,7 @@ def refresh_expenses():
 # -----------------------------
 root = tk.Tk()
 root.title("PocketBudget")
-root.geometry("550x750")
+root.geometry("550x780")
 
 title_label = tk.Label(root, text="PocketBudget", font=("Arial", 18, "bold"))
 title_label.pack(pady=10)
@@ -257,6 +287,9 @@ tk.Label(root, text="Recent Expenses", font=("Arial", 11, "bold")).pack(pady=5)
 
 listbox_expenses = tk.Listbox(root, width=60, height=10)
 listbox_expenses.pack(pady=10)
+
+btn_delete = tk.Button(root, text="Delete Selected Expense", command=delete_expense)
+btn_delete.pack(pady=5)
 
 # Load saved budget into input box
 saved_budget = get_budget_limit()
