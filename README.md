@@ -41,6 +41,7 @@ The primary users are college students and other young adults managing limited i
 - Download or clone this repository.
 - Open the project folder in your code editor or terminal.
 - Run the application with: python main.py
+- IMPORTANT: Please run in full screen to ensure none of the buttons or labels are cut off.
 
 ## Usage Instructions
 1. Enter a planned spending amount in the **Budget Limit** field.
@@ -55,14 +56,12 @@ The primary users are college students and other young adults managing limited i
 10. Check the **Remaining Budget** amount to see how much money is left from the planned budget.
 11. If total spending goes over the budget limit, the app will display a warning that the user is over budget.
 
-## Sprint 1 Goals
+## Sprint Goals
 - Set up the project repository
 - Create project documentation
 - Research similar repositories
 - Build an initial application structure
 - Plan core features for development
-
-## Sprint 2 Goals
 - Improve expense input validation for amount and date fields
 - Add a budget limit feature for users to enter a planned spending amount
 - Display the remaining budget after expenses are added
@@ -71,6 +70,9 @@ The primary users are college students and other young adults managing limited i
 - Add category-based spending totals for better spending summaries
 - Update README.md with clearer setup and usage instructions
 - Test the app with multiple expenses across different categories
+- Remove the test database file from GitHub and update `.gitignore` so personal/test expense data is not included in the repository
+- Add an option to delete an expense entry if the user makes a mistake
+- Improve the spending summary by showing the highest-spending category and total amount spent in each category
 
 ## Team
 - Jack Hubbard
