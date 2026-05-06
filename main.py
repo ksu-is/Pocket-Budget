@@ -166,9 +166,19 @@ def refresh_expenses():
         )
 
     if category_totals:
+        highest_category, highest_total = max(
+            category_totals.items(),
+            key=lambda item: item[1]
+        )
+
+        label_highest_category.config(
+            text=f"Highest-Spending Category: {highest_category} (${highest_total:.2f})"
+        )
+
         for category, total in sorted(category_totals.items(), key=lambda item: item[1], reverse=True):
             listbox_category_totals.insert(tk.END, f"{category}: ${total:.2f}")
     else:
+        label_highest_category.config(text="Highest-Spending Category: None")
         listbox_category_totals.insert(tk.END, "No category totals yet.")
 
     budget_limit = get_budget_limit()
@@ -196,7 +206,7 @@ def refresh_expenses():
 # -----------------------------
 root = tk.Tk()
 root.title("PocketBudget")
-root.geometry("550x780")
+root.geometry("550x800")
 
 title_label = tk.Label(root, text="PocketBudget", font=("Arial", 18, "bold"))
 title_label.pack(pady=10)
@@ -277,6 +287,13 @@ label_remaining.pack(pady=3)
 
 label_status = tk.Label(root, text="No budget limit set.", font=("Arial", 11, "bold"))
 label_status.pack(pady=3)
+
+label_highest_category = tk.Label(
+    root,
+    text="Highest-Spending Category: None",
+    font=("Arial", 11, "bold")
+)
+label_highest_category.pack(pady=5)
 
 tk.Label(root, text="Spending by Category", font=("Arial", 11, "bold")).pack(pady=5)
 
