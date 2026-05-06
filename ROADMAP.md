@@ -43,4 +43,4 @@
 
 - [X] Add an option to delete an expense entry if the user makes a mistake
 
-- [ ] Improve the spending summary by showing the highest-spending category and total amount spent in each category
+- [X] Improve the spending summary by showing the highest-spending category and total amount spent in each category
